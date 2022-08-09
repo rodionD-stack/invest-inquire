@@ -36,11 +36,6 @@ export const Home = () => {
     }, [])
 
     return (
-        // <div>
-        //     <ul>
-        //         {context.stocks.map(item => <li key={item.SECID}>{'Тикет:'+ ' ' + item.SECID + ' ' + 'Короткое название:' + ' ' + item.SHORTNAME + ' ' + 'Объем лота:' + ' ' + item.LOTSIZE + ' ' + 'Полное название:' + ' ' + item.SECNAME + ' ' + 'Стоимость:' + ' ' + item.PREVADMITTEDQUOTE}</li>)}
-        //     </ul>
-        // </div>
         <StateContext.Provider value={{context, setContext}}>
             <HomeStocks/>
         </StateContext.Provider>

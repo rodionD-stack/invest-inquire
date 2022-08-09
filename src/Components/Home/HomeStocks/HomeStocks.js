@@ -1,8 +1,11 @@
 import React from 'react';
-import { HomeStocksItem } from './HomeStocksItem';
+import { HomeStocksTable } from './HomeStocksTable';
 
 export const HomeStocks = () => {
     return (
-        <HomeStocksItem/>
+        <div>
+            <HomeStocksTable/>
+        </div>
+
     )
 }

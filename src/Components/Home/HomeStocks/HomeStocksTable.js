@@ -6,12 +6,17 @@ import { StateContext } from '../../State/State';
 export const HomeStocksTable = () => {
     const {context, setContext} = useContext(StateContext);
     const {stocks} = context;
+
+    const handleRowClick = (e) => {
+        console.log(e)
+    }
     return (
         <Table
             data={stocks ?? []}
             virtualized
             height={500}
             width={600}
+            onRowClick={handleRowClick}
         >
             <Column width={130} align="center" resizable>
                 <HeaderCell>Тикет</HeaderCell>

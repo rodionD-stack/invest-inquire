@@ -12,24 +12,6 @@ export const Home = () => {
     const loadData = useCallback(async () => {
         const stockResponse = await fetch(`https://iss.moex.com/iss/engines/stock/markets/shares/boards/TQBR/securities.json?iss.dp=comma&iss.meta=off&iss.only=securities&securities.columns=SECID,SHORTNAME,LOTSIZE,SECNAME,LATNAME,PREVADMITTEDQUOTE&date=${dateCreate()}`);
         const currencyResponse = await fetch(`https://iss.moex.com//iss/statistics/engines/currency/markets/selt/rates.json?iss.meta=off&date=${dateCreate()}`);
-        // const stockJson = await stockResponse.json();
-
-        // let arr = [];
-        // {stockJson && stockJson.securities.data.map(item => {
-        //         arr.push({
-        //             SECID: item[0],
-        //             SHORTNAME: item[1],
-        //             LOTSIZE: item[2],
-        //             SECNAME: item[3],
-        //             LATNAME: item[4],
-        //             PREVADMITTEDQUOTE: item[5]
-        //         })
-        //         return setContext({
-        //             ...context,
-        //             stocks : arr
-        //         })
-        //     }   
-        // )}
 
         const stockJson = await stockResponse.json()
         const currencyJson = await currencyResponse.json()

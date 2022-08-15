@@ -4,7 +4,7 @@ import { HomeStocksTable } from './HomeStocksTable';
 
 export const HomeStocks = () => {
     return (
-        <div>
+        <div className='homeStocks'>
             <HomeStocksTable/>
             <HomeCurrencyTable/>
         </div>

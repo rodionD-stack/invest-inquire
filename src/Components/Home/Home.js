@@ -11,7 +11,7 @@ export const Home = () => {
 
     const loadData = useCallback(async () => {
         const stockResponse = await fetch(`https://iss.moex.com/iss/engines/stock/markets/shares/boards/TQBR/securities.json?iss.dp=comma&iss.meta=off&iss.only=securities&securities.columns=SECID,SHORTNAME,LOTSIZE,SECNAME,LATNAME,PREVADMITTEDQUOTE&date=${dateCreate()}`);
-        const currencyResponse = await fetch(`https://iss.moex.com//iss/statistics/engines/currency/markets/selt/rates.json?iss.meta=off&date=${dateCreate()}`);
+        const currencyResponse = await fetch(`https://iss.moex.com//iss/statistics/engines/currency/markets/selt/rates.json?iss.meta=off`);
 
         const stockJson = await stockResponse.json()
         const currencyJson = await currencyResponse.json()
@@ -56,6 +56,5 @@ export const Home = () => {
         <StateContext.Provider value={{context, setContext}}>
             <HomeStocks/>
         </StateContext.Provider>
-        
     )
 }

@@ -1,0 +1,12 @@
+.tableParam {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.homeStocks {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+    gap: 30px;
+}

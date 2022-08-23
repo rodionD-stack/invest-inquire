@@ -15,9 +15,9 @@ export const StocksDiagram = () => {
     }
     console.log()
     return (
-        <div style={{display: 'flex', gap: '30px', alignItems: 'center'}}>
+        <div style={{display: 'flex', gap: '100px'}}>
             <PortfolioControllers param={{view, handleChange}}/>
-            <StockDiagramItem param={portfolioDataArr.find(item => item.id === view).data}/>
+            <StockDiagramItem param={portfolioDataArr.find(item => item.id === view)}/>
         </div>
     )
 }

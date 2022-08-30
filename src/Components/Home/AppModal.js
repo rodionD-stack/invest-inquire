@@ -47,7 +47,7 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     onClose: PropTypes.func.isRequired,
   };
 export const AppModal = ({param}) => {
-    const {title, item, show, onClose, component} = param;
+    const {title, item, show, onClose, addTo, selectArr, component} = param;
 
   return (
     <div>
@@ -67,6 +67,9 @@ export const AppModal = ({param}) => {
           <Button onClick={onClose}>
             Закрыть
           </Button>
+          {(selectArr.length === 0 || selectArr.find(el => el.SECID !== item.SECID)) && <Button onClick={() => addTo(item)}>
+            Добавить в портфель
+          </Button>}
         </DialogActions>
       </BootstrapDialog>
     </div>

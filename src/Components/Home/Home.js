@@ -9,16 +9,25 @@ export const Home = () => {
         return new Date().toLocaleDateString().split('.').reverse().join('-')
     }
 
+    const dateHistory = () => {
+        let d = new Date();
+        d = d.setFullYear(d.getFullYear() - 5);
+        return new Date(d).toLocaleDateString().split('.').reverse().join('-')
+    }
+
     const loadData = useCallback(async () => {
         const stockResponse = await fetch(`https://iss.moex.com/iss/engines/stock/markets/shares/boards/TQBR/securities.json?iss.dp=comma&iss.meta=off&iss.only=securities&securities.columns=SECID,SHORTNAME,LOTSIZE,SECNAME,LATNAME,PREVADMITTEDQUOTE&date=${dateCreate()}`);
         const currencyResponse = await fetch(`https://iss.moex.com//iss/statistics/engines/currency/markets/selt/rates.json?iss.meta=off`);
+        const stocksHistoryResponse = await fetch(`https://iss.moex.com/iss/history/engines/stock/markets/shares/boards/TQBR/securities.json?iss.dp=comma&iss.meta=off&iss.only=securities&date=${dateHistory()}`);
 
-        const stockJson = await stockResponse.json()
-        const currencyJson = await currencyResponse.json()
+        const stockJson = await stockResponse.json();
+        const currencyJson = await currencyResponse.json();
+        const stockHistoryJson = await stocksHistoryResponse.json();
 
-        if(stockJson && currencyJson) {
+        if(stockJson && currencyJson && stockHistoryJson) {
             let arrStock = [];
             let arrCurrency = [];
+            let arrHistory = [];
 
             stockJson.securities.data.map(item => {
                 arrStock.push({
@@ -39,10 +48,20 @@ export const Home = () => {
                 })
             })
 
+            stockHistoryJson.history.data.map(item => {
+                arrHistory.push({
+                    id: item[3],
+                    name: item[2],
+                    value: item[14],
+                    lotsize: null
+                })
+            })
+
             setContext({
                 ...context,
                 stocks: arrStock,
-                currency: arrCurrency
+                currency: arrCurrency,
+                stocksHistory: arrHistory
             })
         }
 

@@ -6,9 +6,11 @@ import { StateContext } from '../../State/State';
 import { AppModal } from '../AppModal';
 import { StockItemData } from './StockItem/StockItemData';
 
-export const HomeStocksTable = () => {
+export const HomeStocksTable = ({param}) => {
     const {context, setContext} = useContext(StateContext);
     const {stocks} = context;
+
+    const {selectStocks, handleAddStocks} = param;
 
     //Стейт информации о дивидентах.
     const [dividState, setDividState] = useState([]);
@@ -83,6 +85,8 @@ export const HomeStocksTable = () => {
                 item: stockItem,
                 show: open, 
                 onClose: handleClose,
+                addTo: handleAddStocks,
+                selectArr: selectStocks,
                 component: <StockItemData param={{dividState, stockItem}}/>
                 }}/>
         </div>

@@ -1,10 +1,13 @@
-import { Button } from '@mui/material';
+import { IconButton, Typography } from '@mui/material';
 import React from 'react';
+import DeleteIcon from '@mui/icons-material/Delete';
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 
 import { Table, Column, HeaderCell, Cell } from 'rsuite-table';
 import 'rsuite-table/dist/css/rsuite-table.css'
 
-export const CustomCell = ({rowData, dataKey, onClick, ...props}) => {
+export const CustomCell = ({rowData, dataKey, onDelete, onChangeCount, ...props}) => {
     if(dataKey === 'date') {
         return (
             <Cell {...props}>
@@ -14,7 +17,15 @@ export const CustomCell = ({rowData, dataKey, onClick, ...props}) => {
     } else {
         return (
             <Cell {...props}>
-                <Button onClick={() => onClick(rowData.SECID)} variant='contained'>Удалить</Button>
+                <IconButton onClick={() => onDelete(rowData.SECID)}>
+                    <DeleteIcon/>
+                </IconButton>
+                <IconButton>
+                    <ArrowUpwardIcon onClick={() => onChangeCount(rowData, 'add')}/>
+                </IconButton>
+                <IconButton>
+                    <ArrowDownwardIcon onClick={() => onChangeCount(rowData, 'minus')}/>
+                </IconButton>
             </Cell>
         )
     }
@@ -22,14 +33,14 @@ export const CustomCell = ({rowData, dataKey, onClick, ...props}) => {
 }
 
 export const SelectStocksTable = ({param}) => {
-    const {selectStocks, handleDeleteStocks} = param;
-    console.log(selectStocks)
+    const {selectStocks, handleDeleteStocks, handleChangeCountStocks} = param;
     return (
+        <div>
         <Table
             data={selectStocks}
             virtualized
             height={300}
-            width={700}
+            width={750}
         >
             <Column width={110} align="center" resizable>
                 <HeaderCell>Тикет</HeaderCell>
@@ -40,24 +51,27 @@ export const SelectStocksTable = ({param}) => {
                 <Cell dataKey='SHORTNAME'/>
             </Column>
             <Column width={110} align="center" resizable>
-                <HeaderCell>Лот</HeaderCell>
+                <HeaderCell>Лот (шт. акций)</HeaderCell>
                 <Cell dataKey='LOTSIZE'/>
             </Column>
             <Column width={110} align="center" resizable>
-                <HeaderCell>Стоимость</HeaderCell>
+                <HeaderCell>Цена (руб.)</HeaderCell>
                 <Cell dataKey='PREVADMITTEDQUOTE'/>
             </Column>
             <Column width={110} align="center" resizable>
                 <HeaderCell>Дата</HeaderCell>
                 <CustomCell dataKey='date'/>
             </Column>
-            <Column width={130} align="center" resizable>
-                <HeaderCell>Контроллер</HeaderCell>
+            <Column width={160} align="center" resizable>
+                <HeaderCell>Удалить/Изменить</HeaderCell>
                 <CustomCell 
                     dataKey='control'
-                    onClick={handleDeleteStocks}
+                    onDelete={handleDeleteStocks}
+                    onChangeCount={handleChangeCountStocks}
                 />
             </Column>
         </Table>
+        <Typography variant='h4'>{selectStocks.length !== 0 ?'Сумма:' + ' ' + selectStocks.reduce((total, item) => total + (item.LOTSIZE * item.PREVADMITTEDQUOTE), 0) + 'р.': 'Сумма: 0.0р' }</Typography>
+        </div>
     )
 }

@@ -2,7 +2,22 @@ import React, { useContext, useState } from 'react';
 import { Table, Column, HeaderCell, Cell } from 'rsuite-table';
 import 'rsuite-table/dist/css/rsuite-table.css'
 import { StateContext } from '../../State/State';
-import { CustomCell } from './SelectStocksTable';
+
+const HistoryCustomCell = ({rowData, dataKey, contextD, ...props}) => {
+    if(dataKey === 'date') {
+        return (
+            <Cell {...props}>
+                {contextD.find(item => item.id === rowData.SECID).date}
+            </Cell>
+        )
+    } else if(dataKey === 'PREVADMITTEDQUOTE') {
+        return (
+            <Cell {...props}>
+                {contextD.find(item => item.id === rowData.SECID).value}
+            </Cell>
+        )
+    }
+}
 
 export const HistoryStocksTable = ({param}) => {
     //Контекст
@@ -10,14 +25,10 @@ export const HistoryStocksTable = ({param}) => {
 
     const {selectStocks} = param;
 
-    const [history, setHistory] = useState( [] || context.stocksHistory.map(item => item.SECID === selectStocks.find(item => item).SECID))
-
-    console.log(history)
-
     return (
         <div>
             <Table
-                data={[]}
+                data={selectStocks}
                 virtualized
                 height={300}
                 width={600}
@@ -36,11 +47,17 @@ export const HistoryStocksTable = ({param}) => {
                 </Column>
                 <Column width={110} align="center" resizable>
                     <HeaderCell>Цена (руб.)</HeaderCell>
-                    <Cell dataKey='PREVADMITTEDQUOTE'/>
+                    <HistoryCustomCell 
+                        dataKey='PREVADMITTEDQUOTE'
+                        contextD={context.stocksHistory}
+                    />
                 </Column>
                 <Column width={110} align="center" resizable>
                     <HeaderCell>Дата</HeaderCell>
-                    <CustomCell dataKey='date'/>
+                    <HistoryCustomCell 
+                        dataKey='date'
+                        contextD={context.stocksHistory}
+                    />
                 </Column>
             </Table>
         </div>

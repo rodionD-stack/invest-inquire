@@ -1,19 +1,20 @@
 import { useCallback, useEffect, useState } from "react"
 import { initialContext, StateContext } from '../State/State';
 import { HomeStocks } from "./HomeStocks/HomeStocks";
+
+export const dateCreate = () => {
+    return new Date().toLocaleDateString().split('.').reverse().join('-')
+}
+
+export const dateHistory = () => {
+    let d = new Date();
+    d = d.setFullYear(d.getFullYear() - 5);
+    return new Date(d).toLocaleDateString().split('.').reverse().join('-')
+}
+
 export const Home = () => {
 
     const [context, setContext] = useState(initialContext)
-
-    const dateCreate = () => {
-        return new Date().toLocaleDateString().split('.').reverse().join('-')
-    }
-
-    const dateHistory = () => {
-        let d = new Date();
-        d = d.setFullYear(d.getFullYear() - 5);
-        return new Date(d).toLocaleDateString().split('.').reverse().join('-')
-    }
 
     const loadData = useCallback(async () => {
         const stockResponse = await fetch(`https://iss.moex.com/iss/engines/stock/markets/shares/boards/TQBR/securities.json?iss.dp=comma&iss.meta=off&iss.only=securities&securities.columns=SECID,SHORTNAME,LOTSIZE,SECNAME,LATNAME,PREVADMITTEDQUOTE&date=${dateCreate()}`);
@@ -53,7 +54,8 @@ export const Home = () => {
                     id: item[3],
                     name: item[2],
                     value: item[14],
-                    lotsize: null
+                    lotsize: null,
+                    date: item[1]
                 })
             })
 

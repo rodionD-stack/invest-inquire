@@ -1,4 +1,4 @@
-import { IconButton, Typography } from '@mui/material';
+import { IconButton } from '@mui/material';
 import React from 'react';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
@@ -34,6 +34,7 @@ export const CustomCell = ({rowData, dataKey, onDelete, onChangeCount, ...props}
 
 export const SelectStocksTable = ({param}) => {
     const {selectStocks, handleDeleteStocks, handleChangeCountStocks} = param;
+
     return (
         <div>
         <Table
@@ -71,7 +72,6 @@ export const SelectStocksTable = ({param}) => {
                 />
             </Column>
         </Table>
-        <Typography variant='h4'>{selectStocks.length !== 0 ?'Сумма:' + ' ' + selectStocks.reduce((total, item) => total + (item.LOTSIZE * item.PREVADMITTEDQUOTE), 0) + 'р.': 'Сумма: 0.0р' }</Typography>
         </div>
     )
 }

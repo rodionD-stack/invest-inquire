@@ -12,3 +12,96 @@
     flex-direction: column;
     align-items: center;
 }
+
+@media (min-width: 575.98px){
+    .container {
+        padding-left: calc(50% - 270px);
+        padding-right: calc(50% - 270px);
+    }
+  }
+  
+  @media (min-width: 767.98px){
+    .container {
+        padding-left: calc(50% - 360px);
+        padding-right: calc(50% - 360px);
+    }
+  }
+  
+  @media (min-width: 991.98px) {
+    .container {
+      padding-left: calc(50% - 480px);
+      padding-right: calc(50% - 480px);
+    }
+  }
+  @media (min-width: 1199.98px){
+    .container {
+        padding-left: calc(50% - 600px);
+        padding-right: calc(50% - 600px);
+    }
+}
+
+/*COMPARISON CARD*/
+.comparisonCardContent {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+}
+
+.divComparison {
+    display: flex;
+    gap: 20px;
+}
+
+.divComparisonTotal {
+    width: 800px;
+}
+
+/*BLOCK WITH STOKS TABLE AND CURRENCY TABLE*/
+.divStoksAndCurrency {
+    display: flex;
+    gap: 20px;
+}
+
+/*STOCK DIAGRAM ITEM*/
+.divStockDiagramItem {
+    display: flex;
+    width: 400px;
+    gap: 30px;
+    justify-content: center;
+}
+
+.textStockDiagramItem {
+    height: 500px;
+    width: 300px;
+}
+
+/*STOCKS DIAGRAM*/
+.stocksDiagramCardContent {
+    display: flex;
+    align-items: center;
+    gap: 200px;
+}
+
+/*HEADER APP*/
+.divHeaderApp {
+    display: flex;
+    align-items: center;
+    background-color: #b7d7e8;
+}
+.headerAppText {
+    font-size: 20px;
+    color: red;
+}
+
+/*FOOTER APP*/ 
+.divFooterApp {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    background-color: #b7d7e8;
+    height: 200px;
+    margin-top: 50px;
+}

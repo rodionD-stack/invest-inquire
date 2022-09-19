@@ -1,4 +1,6 @@
 import { useCallback, useEffect, useState } from "react"
+import { FooterApp } from "../FooterApp/FooterApp";
+import { HeaderApp } from "../HeaderApp/HeaderApp";
 import { initialContext, StateContext } from '../State/State';
 import { HomeStocks } from "./HomeStocks/HomeStocks";
 
@@ -75,7 +77,11 @@ export const Home = () => {
 
     return (
         <StateContext.Provider value={{context, setContext}}>
-            <HomeStocks/>
+            <div>
+                <HeaderApp/>
+                <HomeStocks/>
+                <FooterApp/>
+            </div>
         </StateContext.Provider>
     )
 }

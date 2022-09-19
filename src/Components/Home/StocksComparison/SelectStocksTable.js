@@ -41,9 +41,9 @@ export const SelectStocksTable = ({param}) => {
             data={selectStocks}
             virtualized
             height={300}
-            width={750}
+            width={600}
         >
-            <Column width={110} align="center" resizable>
+            <Column width={60} align="center" resizable>
                 <HeaderCell>Тикет</HeaderCell>
                 <Cell dataKey='SECID'/>
             </Column>
@@ -51,15 +51,15 @@ export const SelectStocksTable = ({param}) => {
                 <HeaderCell>Наименование</HeaderCell>
                 <Cell dataKey='SHORTNAME'/>
             </Column>
-            <Column width={110} align="center" resizable>
+            <Column width={80} align="center" resizable>
                 <HeaderCell>Лот (шт. акций)</HeaderCell>
                 <Cell dataKey='LOTSIZE'/>
             </Column>
-            <Column width={110} align="center" resizable>
+            <Column width={80} align="center" resizable>
                 <HeaderCell>Цена (руб.)</HeaderCell>
                 <Cell dataKey='PREVADMITTEDQUOTE'/>
             </Column>
-            <Column width={110} align="center" resizable>
+            <Column width={100} align="center" resizable>
                 <HeaderCell>Дата</HeaderCell>
                 <CustomCell dataKey='date'/>
             </Column>

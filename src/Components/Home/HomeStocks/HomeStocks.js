@@ -2,11 +2,21 @@ import React, { useState, useContext } from 'react';
 import { HomeCurrencyTable } from './HomeCurrencyTable';
 import { HomeStocksTable } from './HomeStocksTable';
 import { StocksDiagram } from '../StocksPortfolio/StocksDiagram';
-import { SelectStocksTable } from '../StocksComparison/SelectStocksTable';
 import { StateContext } from '../../State/State';
-import { HistoryStocksTable } from '../StocksComparison/HistoryStocksTable';
-import { Typography } from '@mui/material';
-import { dateCreate, dateHistory } from '../Home';
+import { WrapperApp } from '../../Wrapper/WrapperApp';
+import { ComparisonSelect } from '../StocksComparison/ComparisonSelect';
+import { ComparisonHistory } from '../StocksComparison/ComparisonHistory';
+import { ComparisonTotal } from '../StocksComparison/ComparisonTotal';
+
+export const summary = (selec, hist, tag) => {
+    const sumS = (selec.reduce((total, item) => total + (item.LOTSIZE * item.PREVADMITTEDQUOTE), 0)).toFixed(2);
+    const sumH = (selec.reduce((total, item) => total + (item.LOTSIZE * hist.find(e => e.id === item.SECID).value), 0)).toFixed(2)
+    return tag === 'hist' ? sumH : tag === 'selec' ? sumS : total(sumS, sumH)
+}
+
+export const total = (totalS, totalH) => {
+    return totalS - totalH
+}
 
 
 export const HomeStocks = () => {
@@ -48,44 +58,31 @@ export const HomeStocks = () => {
         
         setSelectStocks(newData)
     }
-
-    const summary = (selec, hist, tag) => {
-        const sumS = (selec.reduce((total, item) => total + (item.LOTSIZE * item.PREVADMITTEDQUOTE), 0)).toFixed(2);
-        const sumH = (selec.reduce((total, item) => total + (item.LOTSIZE * hist.find(e => e.id === item.SECID).value), 0)).toFixed(2)
-        return tag === 'hist' ? sumH : tag === 'selec' ? sumS : total(sumS, sumH)
-    }
-    const total = (totalS, totalH) => {
-        return totalS - totalH
-    }
     
     return (
         <div className='homeStocks'>
-            <div style={{display: 'flex', flexDirection: 'row', gap: '20px'}}>
-                <HomeStocksTable param={{selectStocks, handleAddStocks}}/>
-                <HomeCurrencyTable/>
+            <div className='container'>
+                <div className='divStoksAndCurrency'>
+                    <HomeStocksTable param={{selectStocks, handleAddStocks}}/>
+                    <HomeCurrencyTable/>
+                </div>
             </div>
-            <div>
+            <WrapperApp textData='Подбор вариантов портфелей'/>
+            <div className='container'>
                 <StocksDiagram/>
             </div>
-            <div style={{display: 'flex', flexDirection: 'row', gap: '20px'}}>
-                <SelectStocksTable param={{selectStocks, handleDeleteStocks, handleChangeCountStocks}}/>
-                <HistoryStocksTable param={{selectStocks}}/>
-            </div>
-            <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '50px'}}>
-                <div style={{display: 'flex', flexDirection: 'row', gap: '300px'}}>
-                    <Typography variant='h4'>
-                        {selectStocks.length !== 0 ?`Портфель в ${dateCreate().slice(0,4)}г:` + ' ' + summary(selectStocks, context.stocksHistory, 'selec') + 'р.': `Стоимость портфеля в ${dateCreate().slice(0,4)}г: 0.0р` }
-                    </Typography>
-                    <Typography variant='h4'>
-                        {selectStocks.length !== 0 ? `Портфель в ${dateHistory().slice(0,4)}г:` + ' ' + summary(selectStocks, context.stocksHistory, 'hist') + 'р.': `Стоимость портфеля в ${dateHistory().slice(0,4)}г: 0.0р` }
-                    </Typography>
+            <WrapperApp textData='Сравнение и аналитика портфелей.'/>
+            <div className='container'>
+                <div className='divComparison'>
+                    <ComparisonSelect param={{selectStocks, handleDeleteStocks, handleChangeCountStocks}}/>
+                    <ComparisonHistory param={{selectStocks}}/>
                 </div>
-                <Typography variant='h4'>
-                    {selectStocks.length !== 0 ? `Доход за 5 лет составил:` + ' ' + summary(selectStocks, context.stocksHistory, 'sum') + 'р.': `Доход за 5 лет составил: 0.0р` }
-                </Typography>
             </div>
-            
+            <div className='container'>
+                <div className='divComparisonTotal'>
+                        <ComparisonTotal param={{selectStocks}}/>
+                </div>
+            </div>
         </div>
-
     )
 }

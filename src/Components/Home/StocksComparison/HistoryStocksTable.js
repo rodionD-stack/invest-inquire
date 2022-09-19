@@ -31,9 +31,9 @@ export const HistoryStocksTable = ({param}) => {
                 data={selectStocks}
                 virtualized
                 height={300}
-                width={600}
+                width={500}
             >
-                <Column width={110} align="center" resizable>
+                <Column width={60} align="center" resizable>
                     <HeaderCell>Тикет</HeaderCell>
                     <Cell dataKey='SECID'/>
                 </Column>
@@ -41,7 +41,7 @@ export const HistoryStocksTable = ({param}) => {
                     <HeaderCell>Наименование</HeaderCell>
                     <Cell dataKey='SHORTNAME'/>
                 </Column>
-                <Column width={110} align="center" resizable>
+                <Column width={80} align="center" resizable>
                     <HeaderCell>Лот (шт. акций)</HeaderCell>
                     <Cell dataKey='LOTSIZE'/>
                 </Column>
@@ -52,7 +52,7 @@ export const HistoryStocksTable = ({param}) => {
                         contextD={context.stocksHistory}
                     />
                 </Column>
-                <Column width={110} align="center" resizable>
+                <Column width={100} align="center" resizable>
                     <HeaderCell>Дата</HeaderCell>
                     <HistoryCustomCell 
                         dataKey='date'

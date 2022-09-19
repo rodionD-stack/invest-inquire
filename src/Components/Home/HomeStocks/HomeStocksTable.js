@@ -1,5 +1,5 @@
 import React, { useCallback, useContext, useState } from 'react';
-import { Typography } from '@mui/material';
+import { Card, CardContent, Typography } from '@mui/material';
 import { Table, Column, HeaderCell, Cell } from 'rsuite-table';
 import 'rsuite-table/dist/css/rsuite-table.css'
 import { StateContext } from '../../State/State';
@@ -54,42 +54,47 @@ export const HomeStocksTable = ({param}) => {
     }
 
     return (
-        <div className='tableParam'>
-            <Typography variant='h3'> Акции</Typography>
-            <Table
-                data={stocks ?? []}
-                virtualized
-                height={500}
-                width={600}
-                onRowClick={handleRowClick}
-            >
-                <Column width={130} align="center" resizable>
-                    <HeaderCell>Тикет</HeaderCell>
-                    <Cell dataKey='SECID'/>
-                </Column>
-                <Column width={130} align="center" resizable>
-                    <HeaderCell>Наименование</HeaderCell>
-                    <Cell dataKey='SHORTNAME'/>
-                </Column>
-                <Column width={150} align="center" resizable>
-                    <HeaderCell>Лот (шт. акций)</HeaderCell>
-                    <Cell dataKey='LOTSIZE'/>
-                </Column>
-                <Column width={130} align="center" resizable>
-                    <HeaderCell>Цена (руб.)</HeaderCell>
-                    <Cell dataKey='PREVADMITTEDQUOTE'/>
-                </Column>
-            </Table>
-            <AppModal param={{
-                title: 'Данные актива',
-                item: stockItem,
-                show: open, 
-                onClose: handleClose,
-                addTo: handleAddStocks,
-                selectArr: selectStocks,
-                component: <StockItemData param={{dividState, stockItem}}/>
-                }}/>
-        </div>
+        <Card>
+            <CardContent>
+                <div className='tableParam'>
+                    <Typography variant='h3'> Акции</Typography>
+                    <Table
+                        data={stocks ?? []}
+                        virtualized
+                        height={500}
+                        width={600}
+                        onRowClick={handleRowClick}
+                    >
+                        <Column width={130} align="center" resizable>
+                            <HeaderCell>Тикет</HeaderCell>
+                            <Cell dataKey='SECID'/>
+                        </Column>
+                        <Column width={130} align="center" resizable>
+                            <HeaderCell>Наименование</HeaderCell>
+                            <Cell dataKey='SHORTNAME'/>
+                        </Column>
+                        <Column width={150} align="center" resizable>
+                            <HeaderCell>Лот (шт. акций)</HeaderCell>
+                            <Cell dataKey='LOTSIZE'/>
+                        </Column>
+                        <Column width={130} align="center" resizable>
+                            <HeaderCell>Цена (руб.)</HeaderCell>
+                            <Cell dataKey='PREVADMITTEDQUOTE'/>
+                        </Column>
+                    </Table>
+                    <AppModal param={{
+                        title: 'Данные актива',
+                        item: stockItem,
+                        show: open, 
+                        onClose: handleClose,
+                        addTo: handleAddStocks,
+                        selectArr: selectStocks,
+                        component: <StockItemData param={{dividState, stockItem}}/>
+                        }}/>
+                </div>
+            </CardContent>
+        </Card>
+        
         
     )
 }

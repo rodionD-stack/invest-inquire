@@ -1,3 +1,4 @@
+import { Card, CardContent } from '@mui/material';
 import React, { useState } from 'react';
 import { PortfolioControllers } from './PortfolioControllers';
 import { portfolioDataArr } from './PortfolioData';
@@ -15,9 +16,14 @@ export const StocksDiagram = () => {
     }
     console.log()
     return (
-        <div style={{display: 'flex', gap: '100px'}}>
-            <PortfolioControllers param={{view, handleChange}}/>
-            <StockDiagramItem param={portfolioDataArr.find(item => item.id === view)}/>
-        </div>
+        <Card sx={{ minWidth: 1050 }}>
+            <CardContent>
+                <div className='stocksDiagramCardContent'>
+                    <PortfolioControllers param={{view, handleChange}}/>
+                    <StockDiagramItem param={portfolioDataArr.find(item => item.id === view)}/>
+                </div>
+            </CardContent>
+        </Card>
+        
     )
 }
